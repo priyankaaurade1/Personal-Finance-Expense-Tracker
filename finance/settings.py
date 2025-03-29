@@ -25,7 +25,11 @@ SECRET_KEY = 'django-insecure-ah6ij%&i6*#u78w#rqqod32ohrvr4njtl-!=5^=)hs@26t$imz
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    "127.0.0.1",  
+    "localhost", 
+    "personal-finance-expense-tracker.onrender.com",  
+]
 
 
 # Application definition
@@ -122,3 +126,9 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+import dj_database_url
+
+DATABASES = {
+    "default": dj_database_url.config(default="sqlite:///db.sqlite3")
+}
