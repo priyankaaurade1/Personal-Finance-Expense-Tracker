@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+    <div class="card shadow-lg p-4 border-0 rounded-4" style="width: 400px;">
+        <h2 class="text-center mb-4 fw-bold">Sign Up</h2>
+        <form method="post">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label class="form-label fw-semibold">Username</label>
+                <input type="text" name="username" class="form-control rounded-3 p-2" placeholder="Choose a username">
+            </div>
+            <div class="mb-3">
+                <label class="form-label fw-semibold">Email</label>
+                <input type="email" name="email" class="form-control rounded-3 p-2" placeholder="Enter your email">
+            </div>
+            <div class="mb-3">
+                <label class="form-label fw-semibold">Password</label>
+                <input type="password" name="password1" class="form-control rounded-3 p-2" placeholder="Create a password">
+            </div>
+            <div class="mb-3">
+                <label class="form-label fw-semibold">Confirm Password</label>
+                <input type="password" name="password2" class="form-control rounded-3 p-2" placeholder="Confirm your password">
+            </div>
+            <button type="submit" class="btn btn-success w-100 rounded-3 py-2">Register</button>
+        </form>
+        <p class="text-center mt-3">Already have an account? <a href="{% url 'login' %}" class="text-success fw-semibold">Login</a></p>
+    </div>
+</div>
+{% endblock %}

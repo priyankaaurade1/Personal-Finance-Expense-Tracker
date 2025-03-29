@@ -132,3 +132,5 @@ import dj_database_url
 DATABASES = {
     "default": dj_database_url.config(default="sqlite:///db.sqlite3")
 }
+
+LOGIN_REDIRECT_URL = '/expenses/' 

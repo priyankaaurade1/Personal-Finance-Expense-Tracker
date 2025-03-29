@@ -1,36 +1,55 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h2>Your Expenses</h2>
-<p>Total Spent: ${{ total_spent }}</p>
+<div class="container mt-5">
+    <h1 class="text-center">Welcome to Personal Finance Tracker</h1>
+    <p class="lead text-center">
+        Easily track your expenses, set budgets, and take control of your financial future.
+    </p>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>Title</th>
-            <th>Amount</th>
-            <th>Category</th>
-            <th>Note</th>
-            <th>Date</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for expense in expenses %}
-        <tr>
-            <td>{{ expense.title }}</td>
-            <td>${{ expense.amount }}</td>
-            <td>{{ expense.get_category_display }}</td>
-            <td>{{ expense.note }}</td>
-            <td>{{ expense.date }}</td>
-        </tr>
-        {% empty %}
-        <tr>
-            <td colspan="4">No expenses found.</td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+    <!-- Show information about expense tracking for new users -->
+    {% if not user.is_authenticated %}
+    <div class="alert alert-info text-center">
+        <p>Tracking your expenses is the first step towards financial freedom. 
+           See where your money is going and take control of your savings!</p>
+        <p>Start today and build healthy financial habits.</p>
+        <a href="{% url 'login' %}" class="btn btn-primary">Login to Get Started</a>
+        <a href="{% url 'register' %}" class="btn btn-success">Create an Account</a>
+    </div>
+    {% endif %}
 
-<a href="{% url 'add_expense' %}" class="btn btn-primary">Add Expense</a>
+    <!-- Show the expenses only if the user is logged in -->
+    {% if user.is_authenticated %}
+    <h2>Your Expenses</h2>
+    <p><strong>Total Spent:</strong> ${{ total_spent }}</p>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Amount</th>
+                <th>Category</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for expense in expenses %}
+            <tr>
+                <td>{{ expense.title }}</td>
+                <td>${{ expense.amount }}</td>
+                <td>{{ expense.get_category_display }}</td>
+                <td>{{ expense.date }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4" class="text-center">No expenses recorded yet.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{% url 'add_expense' %}" class="btn btn-primary">Add Expense</a>
+    {% endif %}
+</div>
 
 {% endblock %}
